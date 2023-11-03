@@ -1,0 +1,67 @@
+/* Source: https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar.css */
+
+:root[tabsintitlebar][uidensity="compact"]{ --uc-toolbar-height: 32px }
+
+#TabsToolbar{ visibility: collapse !important }
+
+:root[sizemode="fullscreen"] #TabsToolbar > :is(#window-controls,.titlebar-buttonbox-container){
+  visibility: visible !important;
+  z-index: 2;
+}
+
+:root:not([inFullscreen]) #nav-bar{
+  margin-top: calc(0px - var(--uc-toolbar-height,0px));
+}
+
+:root[tabsintitlebar] #toolbar-menubar[autohide="true"]{
+  min-height: unset !important;
+  height: var(--uc-toolbar-height,0px) !important;
+  position: relative;
+}
+
+#toolbar-menubar[autohide="false"]{
+  margin-bottom: var(--uc-toolbar-height,0px)
+}
+
+:root[tabsintitlebar] #toolbar-menubar[autohide="true"] #main-menubar{
+  flex-grow: 1;
+  align-items: stretch;
+  background-color: var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor);
+  background-clip: padding-box;
+  border-right: 30px solid transparent;
+  border-image: linear-gradient(to left, transparent, var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor) 30px) 20 / 30px
+}
+
+#toolbar-menubar:not([inactive]){ z-index: 2 }
+#toolbar-menubar[autohide="true"][inactive] > #menubar-items {
+  opacity: 0;
+  pointer-events: none;
+  margin-left: var(--uc-window-drag-space-pre,0px)
+}
+
+/* If needed on mac: https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_osx.css */
+
+/* Source: Me */
+
+#sidebar-header { visibility: collapse !important; }
+
+#nav-bar {
+    /* Apparently, the sidebar is at 90? Just because?? */
+    z-index: 91;
+}
+
+#navigator-toolbox { border-bottom-width: 0px !important; }
+
+#sidebar-box, #sidebar-splitter {
+  margin-top: -40px !important;
+} 
+
+#sidebar-splitter {
+  border-left-width: 0px !important;
+  width: 2px !important;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#navigator-toolbox {
+  margin-left: 15% !important;
+}
